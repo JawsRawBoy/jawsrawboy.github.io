@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="다양한 화기를 수집·조작·커스터마이징하고 여러 사격장에서 실전 사격 감각을 경험하세요.">
+<meta name="theme-color" content="#000000">
+<title>GUNTRA — 전술 화기 수집 · 커스터마이징 · 사격</title>
+<link rel="icon" type="image/png" href="img/icon.png">
+<style>
+  :root {
+    --primary: #ff6600;
+    --primary-hover: #e05800;
+    --primary-focus: #ff7a1a;
+    --primary-on-dark: #ff8533;
+    --ink: #1d1d1f;
+    --body: #1d1d1f;
+    --body-on-dark: #ffffff;
+    --body-muted: #cccccc;
+    --ink-muted-80: #333333;
+    --ink-muted-48: #7a7a7a;
+    --divider-soft: #f0f0f0;
+    --hairline: #e0e0e0;
+    --canvas: #ffffff;
+    --canvas-parchment: #f5f5f7;
+    --surface-pearl: #fafafc;
+    --surface-tile-1: #272729;
+    --surface-tile-2: #2a2a2c;
+    --surface-tile-3: #252527;
+    --surface-black: #000000;
+    --on-primary: #ffffff;
+    --on-dark: #ffffff;
+
+    --rounded-none: 0px;
+    --rounded-xs: 3px;
+    --rounded-sm: 6px;
+    --rounded-md: 8px;
+    --rounded-lg: 10px;
+    --rounded-xl: 12px;
+
+    --font-display: "Pretendard", "SF Pro Display", system-ui, -apple-system, sans-serif;
+    --font-text: "Pretendard", "SF Pro Text", system-ui, -apple-system, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--canvas);
+    color: var(--ink);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-text);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Global Nav (#000000, height 48px) */
+  .global-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: var(--surface-black);
+    color: var(--on-dark);
+    border-radius: var(--rounded-none);
+    min-height: 48px;
+  }
+
+  .nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--on-dark);
+    min-height: 44px;
+  }
+
+  .brand img {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--rounded-sm);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: 0;
+    color: var(--body-muted);
+  }
+
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 4px;
+    border: 2px solid transparent;
+    border-radius: var(--rounded-sm);
+    transition: color 0.15s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--on-dark);
+  }
+
+  .nav-links a:focus-visible {
+    outline: none;
+    border: 2px solid var(--primary-focus);
+  }
+
+  /* Full-width alternating tiles (rounded: 0px, gap: 0px, padding: 80px) */
+  .tile {
+    width: 100%;
+    border-radius: var(--rounded-none);
+    padding: 80px 24px;
+  }
+
+  .tile-dark {
+    background-color: var(--surface-tile-1);
+    color: var(--on-dark);
+  }
+
+  .tile-dark-2 {
+    background-color: var(--surface-tile-2);
+    color: var(--on-dark);
+  }
+
+  .tile-light {
+    background-color: var(--canvas);
+    color: var(--ink);
+  }
+
+  .tile-parchment {
+    background-color: var(--canvas-parchment);
+    color: var(--ink);
+  }
+
+  .wrap-text {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .wrap-wide {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* Typography scale */
+  .hero-title {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--on-dark);
+  }
+
+  .hero-lead {
+    margin: 0 auto;
+    max-width: 680px;
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: var(--body-muted);
+  }
+
+  .tile-heading {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-align: center;
+  }
+
+  .tile-lead {
+    margin: 0 auto 48px;
+    max-width: 680px;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .tile-dark .tile-lead,
+  .tile-dark-2 .tile-lead {
+    color: var(--body-muted);
+  }
+
+  .tile-light .tile-lead,
+  .tile-parchment .tile-lead {
+    color: var(--ink-muted-80);
+  }
+
+  /* Hero section */
+  .hero-copy {
+    text-align: center;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Buttons (DESIGN.md tokens + distinct hover vs focus) */
+  .button-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 16px 30px;
+    background-color: var(--primary);
+    color: var(--on-primary);
+    border: 2px solid transparent;
+    border-radius: var(--rounded-lg);
+    font-family: var(--font-text);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.0;
+    letter-spacing: 0;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .button-hero:hover {
+    background-color: var(--primary-hover);
+  }
+
+  .button-hero:focus-visible {
+    outline: none;
+    background-color: var(--primary);
+    border: 2px solid var(--primary-focus);
+  }
+
+  .button-hero:active {
+    background-color: var(--primary-hover);
+    transform: scale(0.97);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 8px;
+    color: var(--primary);
+    border: 2px solid transparent;
+    border-radius: var(--rounded-md);
+    font-size: 17px;
+    font-weight: 400;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .text-link:focus-visible {
+    outline: none;
+    border: 2px solid var(--primary-focus);
+  }
+
+  .text-link-on-dark {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 8px;
+    color: var(--primary-on-dark);
+    border: 2px solid transparent;
+    border-radius: var(--rounded-md);
+    font-size: 17px;
+    font-weight: 400;
+  }
+
+  .text-link-on-dark:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .text-link-on-dark:focus-visible {
+    outline: none;
+    border: 2px solid var(--primary-focus);
+  }
+
+  .caption-note {
+    margin: 16px 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+
+  .tile-dark .caption-note {
+    color: var(--body-muted);
+  }
+
+  .tile-light .caption-note {
+    color: var(--ink-muted-80);
+  }
+
+  /* Hero Product Image (ONLY shadow in page for grounded product) */
+  .hero-media {
+    margin-top: 48px;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1024 / 500;
+    object-fit: cover;
+    border-radius: var(--rounded-md);
+    box-shadow: 3px 5px 30px 0 rgba(0, 0, 0, 0.22);
+  }
+
+  /* Features 2x2 Grid (card: #ffffff, hairline 1px, rounded: 12px, padding: 24px) */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background-color: var(--canvas);
+    color: var(--ink);
+    border: 1px solid var(--hairline);
+    border-radius: var(--rounded-xl);
+    padding: 24px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: var(--canvas-parchment);
+    color: var(--ink-muted-80);
+    border-radius: var(--rounded-xs);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  .card-title {
+    margin: 12px 0 8px;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    color: var(--ink-muted-80);
+  }
+
+  .mode-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-muted-80);
+  }
+
+  .mode-list li + li {
+    margin-top: 8px;
+  }
+
+  .mode-strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Screenshots 4-col grid (card 12px -> image 8px) */
+  .shots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .shot-card {
+    margin: 0;
+    background-color: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--rounded-xl);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .shot-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    border-radius: var(--rounded-md);
+    background-color: var(--surface-black);
+  }
+
+  .shot-card figcaption {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    text-align: center;
+  }
+
+  /* Trailer flat black stage (rounded: 12px, zero gradient) */
+  .trailer-stage {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background-color: var(--surface-black);
+    border-radius: var(--rounded-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    gap: 12px;
+  }
+
+  .trailer-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--rounded-lg);
+    background-color: var(--surface-tile-1);
+    color: var(--primary-on-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trailer-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--on-dark);
+  }
+
+  .trailer-desc {
+    margin: 0;
+    font-size: 14px;
+    color: var(--body-muted);
+  }
+
+  /* Tester & Play CTA Tile */
+  .cta-center {
+    text-align: center;
+  }
+
+  .cta-divider {
+    width: 100%;
+    max-width: 320px;
+    height: 1px;
+    background-color: var(--divider-soft);
+    margin: 32px auto;
+  }
+
+  .button-pearl-play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 12px 22px;
+    background-color: var(--surface-pearl);
+    color: var(--ink-muted-80);
+    border: 1px solid var(--hairline);
+    border-radius: var(--rounded-md);
+    font-family: var(--font-text);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.0;
+    cursor: default;
+    user-select: none;
+  }
+
+  .button-pearl-play svg {
+    flex-shrink: 0;
+    color: var(--primary);
+  }
+
+  /* Footer (canvas-parchment #f5f5f7, padding 64px, links 15px / 2.2) */
+  .site-footer {
+    background-color: var(--canvas-parchment);
+    color: var(--ink-muted-80);
+    border-radius: var(--rounded-none);
+    padding: 64px 24px;
+  }
+
+  .footer-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 24px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 2.2;
+  }
+
+  .footer-links a {
+    color: var(--primary);
+    border: 2px solid transparent;
+    border-radius: var(--rounded-xs);
+    padding: 2px 4px;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .footer-links a:focus-visible {
+    outline: none;
+    border: 2px solid var(--primary-focus);
+  }
+
+  .footer-copy {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--ink-muted-48);
+  }
+
+  /* Responsive breakpoints per DESIGN.md */
+  @media (max-width: 1068px) {
+    .hero-title {
+      font-size: 40px;
+    }
+    .shots-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 834px) {
+    .shots-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 34px;
+    }
+    .hero-lead {
+      font-size: 21px;
+    }
+    .tile-heading {
+      font-size: 32px;
+    }
+    .features-grid,
+    .shots-grid {
+      grid-template-columns: 1fr;
+    }
+    .button-hero,
+    .button-pearl-play {
+      width: 100%;
+    }
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 419px) {
+    .tile {
+      padding: 48px 16px;
+    }
+    .hero-title {
+      font-size: 28px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="global-nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img src="img/icon.png" alt="GUNTRA 아이콘" width="24" height="24">
+      <span>GUNTRA</span>
+    </a>
+    <nav class="nav-links" aria-label="주요 메뉴">
+      <a href="#features">특징</a>
+      <a href="#screenshots">스크린샷</a>
+      <a href="#trailer">트레일러</a>
+      <a href="#download">테스터 참여</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- 1. 대표 이미지 + 게임 이름 + 한 줄 소개 + 5-1 상단 테스터 참여 -->
+  <section class="tile tile-dark" aria-label="게임 소개">
+    <div class="wrap-text">
+      <div class="hero-copy">
+        <h1 class="hero-title">GUNTRA</h1>
+        <p class="hero-lead">다양한 화기를 수집·조작·커스터마이징하고 여러 사격장에서 실전 사격 감각을 경험하세요.</p>
+        <div class="hero-actions">
+          <a class="button-hero" href="https://docs.google.com/forms/d/e/1FAIpQLSd_g0TYqJYqymUZRiBdtusYdHvaEfZB8yZcb4ejUIKklBAmbw/viewform" target="_blank" rel="noopener noreferrer">테스터 참여하기 ↗</a>
+          <a class="text-link-on-dark" href="#screenshots">스크린샷 보기 ›</a>
+        </div>
+        <p class="caption-note">안드로이드 폰 · Play 스토어 Gmail로 신청하면 비공개 테스트 링크를 보내 드립니다.</p>
+      </div>
+      <div class="hero-media">
+        <img class="hero-image" src="img/hero.jpg" alt="GUNTRA 전술 화기 컬렉션 대표 이미지" width="1024" height="500">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 특징 4개 (밝은 면 #ffffff) -->
+  <section id="features" class="tile tile-light" aria-labelledby="features-title">
+    <div class="wrap-text">
+      <h2 class="tile-heading" id="features-title">주요 특징</h2>
+      <p class="tile-lead">화기의 구조와 조작감, 커스터마이징과 사격장 경험을 한 곳에 담았습니다.</p>
+      <div class="features-grid">
+        <article class="card">
+          <span class="badge">01</span>
+          <h3 class="card-title">정밀 화기 컬렉션</h3>
+          <p>클래식 .45 구경 권총과 현대식 9mm 폴리머 권총, 대구경 매그넘부터 컴팩트 기관단총, 주력 돌격소총, 볼트액션 저격소총까지 개성 있는 다양한 화기를 수집하고 강화할 수 있습니다.</p>
+        </article>
+
+        <article class="card">
+          <span class="badge">02</span>
+          <h3 class="card-title">세부 조작과 파츠 커스텀</h3>
+          <p>노리쇠와 장전손잡이를 당기고, 탄창을 분리·삽입하며, 접이식 부품과 가늠자를 직접 조작할 수 있습니다. 광학 조준경, 핸드가드, 소염기·소음기, 개머리판, 전방 손잡이, 대용량 탄창 등 다양한 조합을 레일에 장착하고 실제 조준 시야(ADS)까지 바로 확인하세요.</p>
+        </article>
+
+        <article class="card">
+          <span class="badge">03</span>
+          <h3 class="card-title">사격 모드</h3>
+          <ul class="mode-list">
+            <li><span class="mode-strong">레인지 사격</span> — 실내 사대부터 들판, 숲속, 장거리 사격장까지 환경과 거리별 사격을 즐기세요.</li>
+            <li><span class="mode-strong">오버드라이브</span> — 웨이브와 보스를 돌파하는 하이퍼 사격 모드.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="badge">04</span>
+          <h3 class="card-title">나만의 작업실</h3>
+          <p>작업실 인테리어와 총기 거치대를 꾸며 컬렉션을 전시하고 보상을 모아보세요.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 스크린샷 4장 (연회색 면 #f5f5f7) -->
+  <!-- REPLACE_SCREENSHOTS: 스토어 최종 수정본 준비 시 img/shot_01_range.jpg, img/shot_02_customize.jpg, img/shot_03_inspect.jpg, img/shot_04_workshop.jpg 를 같은 이름으로 덮어쓰기 (추가 시 shot_05_*.jpg 확장 가능) -->
+  <section id="screenshots" class="tile tile-parchment" aria-labelledby="screenshots-title">
+    <div class="wrap-wide">
+      <h2 class="tile-heading" id="screenshots-title">게임 스크린샷</h2>
+      <p class="tile-lead">사격, 파츠 조립, 정밀 조작, 나만의 작업실까지.</p>
+      <div class="shots-grid">
+        <figure class="shot-card">
+          <img src="img/shot_01_range.jpg" alt="GUNTRA 레인지 사격 화면" width="720" height="1280" loading="lazy">
+          <figcaption>레인지 사격</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <img src="img/shot_02_customize.jpg" alt="GUNTRA 파츠 커스터마이징 화면" width="720" height="1280" loading="lazy">
+          <figcaption>파츠 커스텀</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <img src="img/shot_03_inspect.jpg" alt="GUNTRA 화기 세부 조작 화면" width="720" height="1280" loading="lazy">
+          <figcaption>세부 조작</figcaption>
+        </figure>
+        <figure class="shot-card">
+          <img src="img/shot_04_workshop.jpg" alt="GUNTRA 나만의 작업실 화면" width="720" height="1280" loading="lazy">
+          <figcaption>나만의 작업실</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 트레일러 자리 (어두운 면 #2a2a2c) -->
+  <!-- REPLACE_TRAILER: 트레일러 영상 확정 후 아래 .trailer-stage 내부를 <video controls playsinline poster="..."> 또는 공식 임베드로 교체 -->
+  <section id="trailer" class="tile tile-dark-2" aria-labelledby="trailer-title">
+    <div class="wrap-text">
+      <h2 class="tile-heading" id="trailer-title">공식 트레일러</h2>
+      <p class="tile-lead">영상 공개를 준비하고 있습니다.</p>
+      <div class="trailer-stage" role="region" aria-label="공식 트레일러 준비 중">
+        <div class="trailer-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <p class="trailer-title">트레일러 준비 중</p>
+        <p class="trailer-desc">공식 트레일러 영상이 완성되면 이 자리에 공개됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 & 5-1. 하단 테스터 참여하기 + Google Play에서 받기 자리 (밝은 면 #ffffff) -->
+  <!-- REPLACE_PLAY_LINK: 출시 URL 확정 후 .button-pearl-play를 <a class="button-pearl-play" href="https://play.google.com/store/apps/details?id=..."> 로 교체하고 .badge 제거 -->
+  <section id="download" class="tile tile-light" aria-labelledby="download-title">
+    <div class="wrap-text cta-center">
+      <h2 class="tile-heading" id="download-title">비공개 테스트 참여</h2>
+      <p class="tile-lead">Google Play 정식 공개에 앞서 안드로이드 비공개 테스트를 진행 중입니다.</p>
+      <a class="button-hero" href="https://docs.google.com/forms/d/e/1FAIpQLSd_g0TYqJYqymUZRiBdtusYdHvaEfZB8yZcb4ejUIKklBAmbw/viewform" target="_blank" rel="noopener noreferrer">테스터 참여하기 ↗</a>
+      <p class="caption-note">안드로이드 폰 · Play 스토어 Gmail로 신청하면 비공개 테스트 링크를 보내 드립니다.</p>
+      <div class="cta-divider" aria-hidden="true"></div>
+      <div class="button-pearl-play" role="button" aria-disabled="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M4 3.5v17a1 1 0 0 0 1.52.85l14.2-8.5a1 1 0 0 0 0-1.7L5.52 2.65A1 1 0 0 0 4 3.5z"/>
+        </svg>
+        <span>Google Play에서 받기</span>
+        <span class="badge">곧 공개</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 6. 하단 (#f5f5f7) -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <span>문의: <a href="mailto:jawsrawboy@gmail.com">jawsrawboy@gmail.com</a></span>
+      <a href="/guntra/privacy/">개인정보처리방침</a>
+    </div>
+    <p class="footer-copy">© JRB WORKS</p>
+  </div>
+</footer>
+
+</body>
+</html>
