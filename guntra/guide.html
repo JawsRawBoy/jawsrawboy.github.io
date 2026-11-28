@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="GUNTRA 게임 가이드. 모바일 조작, 슈팅 매치 규칙과 명중 표시, 크레딧 사용법을 알아보세요.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GUNTRA">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="GUNTRA — 게임 가이드">
+<meta property="og:description" content="슈팅 매치 규칙과 명중 표시부터 모바일 조작과 크레딧까지.">
+<meta property="og:url" content="https://jawsrawboy.github.io/guntra/guide.html">
+<meta property="og:image" content="https://jawsrawboy.github.io/guntra/img/og.jpg">
+<link rel="canonical" href="https://jawsrawboy.github.io/guntra/guide.html">
+<link rel="icon" type="image/png" href="img/icon.png">
+<title>GUNTRA — 게임 가이드</title>
+<style>
+  :root {
+    --primary: #ff6600;
+    --focus: #ff7a1a;
+    --orange-on-dark: #ff8533;
+    --ink: #1d1d1f;
+    --muted: #333333;
+    --dark: #272729;
+    --parchment: #f5f5f7;
+    --hairline: #e0e0e0;
+    --display: "Pretendard", "SF Pro Display", system-ui, -apple-system, sans-serif;
+    --text: "Pretendard", "SF Pro Text", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: #fff;
+    font: 400 17px/1.6 var(--text);
+    letter-spacing: -0.01em;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  img { display: block; max-width: 100%; }
+  .wrap-text { max-width: 980px; margin: 0 auto; }
+  .jump a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 24px;
+  }
+  .tile { padding: 80px 24px; scroll-margin-top: 96px; }
+  .tile-dark { background: var(--dark); color: #fff; }
+  .tile-parchment { background: var(--parchment); }
+  .hero { text-align: center; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; }
+  h1 { margin: 0 0 12px; font-size: 56px; line-height: 1.12; letter-spacing: -0.02em; }
+  h2 { margin: 0 0 12px; font-size: 40px; line-height: 1.15; letter-spacing: -0.015em; }
+  h3 { margin: 0 0 8px; font-size: 21px; line-height: 1.3; }
+  p, ul, ol, dl { margin: 0; }
+  ul, ol { padding-left: 24px; }
+  li + li { margin-top: 8px; }
+  .hero-lead { max-width: 680px; margin: 0 auto; color: #ccc; font-size: 24px; }
+  .section-lead { margin-bottom: 24px; }
+  .tile-dark .section-lead { color: #ccc; }
+  .jump { justify-content: center; margin: 24px auto 0; gap: 8px 16px; }
+  .jump a {
+    padding: 0 12px;
+    color: var(--orange-on-dark);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+  }
+  .jump a:hover { background: #373739; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .card {
+    padding: 24px;
+    background: #fff;
+    color: var(--muted);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+  }
+  .card h3, dt { color: var(--ink); }
+  dt { font-weight: 600; }
+  dd { margin: 0; }
+  dd + dt { margin-top: 12px; }
+  .score-note { margin-top: 16px; }
+  .controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 260px); gap: 48px; align-items: start; }
+  .controls h3 { margin-top: 24px; }
+  figure { margin: 0; }
+  figure img { width: 100%; height: auto; border-radius: 8px; }
+  figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; text-align: center; }
+  @media (max-width: 735px) {
+    .tile { padding: 48px 24px; }
+    h1 { font-size: 34px; }
+    h2 { font-size: 32px; }
+    .hero-lead { font-size: 21px; }
+  }
+  @media (max-width: 640px) {
+    .grid, .controls { grid-template-columns: 1fr; gap: 24px; }
+    figure { max-width: 240px; margin: 0 auto; }
+  }
+  @media (max-width: 419px) {
+    .tile { padding-inline: 16px; }
+    h1 { font-size: 28px; }
+  }
+</style>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-container site-bar">
+    <a class="site-brand" href="index.html"><img src="img/icon.png" alt="" width="24" height="24">GUNTRA</a>
+    <nav class="site-menu" aria-label="주요 메뉴">
+      <a href="index.html">홈</a><a href="guide.html" aria-current="page">게임 가이드</a><a href="updates.html">업데이트</a><a href="faq.html">FAQ</a><a href="privacy/index.html">개인정보처리방침</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="tile tile-dark hero" aria-labelledby="guide-title">
+    <div class="wrap-text">
+      <h1 id="guide-title">GUNTRA 게임 가이드</h1>
+      <p class="hero-lead">화기를 수집하고 커스터마이징하는 모바일 사격 게임입니다. 첫 조작부터 슈팅 매치의 점수와 명중 표시까지 확인하세요.</p>
+      <nav class="jump" aria-label="가이드 목차">
+        <a href="#match">슈팅 매치 규칙</a>
+        <a href="#hits">명중 표시</a>
+        <a href="#controls">모바일 조작</a>
+        <a href="#modes">게임 모드</a>
+        <a href="#progression">성장과 보상</a>
+        <a href="#faq">자주 묻는 질문</a>
+      </nav>
+    </div>
+  </section>
+
+  <section id="match" class="tile tile-parchment" aria-labelledby="match-title">
+    <div class="wrap-text">
+      <h2 id="match-title">슈팅 매치 규칙</h2>
+      <p class="section-lead">정해진 표적을 맞혀 사격 위치를 차례로 통과하고, 높은 <strong>히트 팩터</strong>를 노리세요.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>시작부터 종료까지</h3>
+          <ol>
+            <li><strong>사격장 → 슈팅 매치</strong>에서 매치를 고른 뒤 <strong>조준 시작</strong>을 누르세요. 3, 2, 1 카운트다운 뒤 시간이 흐릅니다.</li>
+            <li>현재 위치에서 필요한 명중을 채우면 다음 위치로 자동 이동합니다. 종이 표적은 보통 두 번, 철판 표적은 한 번 맞혀야 합니다.</li>
+            <li>마지막 위치를 완료하거나 제한 시간에 닿으면 해당 스테이지가 끝납니다. 기본 제한은 스테이지당 120초지만 코스에 따라 달라질 수 있습니다. 여러 스테이지가 있는 매치는 마지막 스테이지가 끝나면 결과가 나옵니다.</li>
+          </ol>
+        </article>
+        <article class="card">
+          <h3>점수 계산</h3>
+          <ul>
+            <li>종이 표적은 <strong>A 5점 · C 3점 · D 1점</strong>입니다. 필요 횟수보다 많이 맞히면 그중 점수가 높은 명중만 필요한 수만큼 반영합니다.</li>
+            <li>철판 표적은 <strong>5점</strong>입니다. 채우지 못한 필수 명중은 한 발당 <strong>−10점</strong>, 금지 표적 명중은 같은 표적의 처음 두 발까지 한 발당 <strong>−10점</strong>입니다.</li>
+          </ul>
+          <p class="score-note"><strong>히트 팩터 = 순점수 ÷ 걸린 시간(초)</strong><br>스테이지마다 득점에서 벌점을 빼되 최소 0점입니다. 여러 스테이지가 있는 매치는 스테이지 순점수의 합을 전체 사격 시간으로 나눕니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="hits" class="tile tile-dark" aria-labelledby="hits-title">
+    <div class="wrap-text">
+      <h2 id="hits-title">내가 맞혔는지 확인하는 법</h2>
+      <p class="section-lead">쏜 직후 조준점 근처에 잠깐 뜨는 글자를 보세요. 철판은 점수 글자 대신 소리와 표적의 움직임으로 확인할 수 있습니다.</p>
+      <div class="card">
+        <dl>
+          <dt>A 5 / C 3 / D 1</dt>
+          <dd>종이 표적 명중. 글자는 맞힌 구역, 숫자는 그 구역의 점수입니다.</dd>
+          <dt>철판이 쓰러지며 ‘딩’ 소리</dt>
+          <dd>철판 표적 명중. A·C·D 글자는 뜨지 않습니다.</dd>
+          <dt>빗나감 / 가림 / 표적 밖</dt>
+          <dd>득점으로 인정되지 않은 탄입니다. 각각 표적을 빗나갔거나, 가림막에 막혔거나, 종이 표적의 득점 구역 밖에 맞은 경우입니다.</dd>
+          <dt>금지 · -10점</dt>
+          <dd>맞히면 안 되는 표적에 맞았습니다. 실제 누적 벌점은 상단의 <strong>금지 -N점</strong> 표시에서 확인하세요.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="controls" class="tile" aria-labelledby="controls-title">
+    <div class="wrap-text controls">
+      <div>
+        <h2 id="controls-title">처음 시작하기 · 모바일 조작</h2>
+        <p>앱을 처음 열면 기본 화기를 보유한 상태로 <strong>무기고</strong>에서 시작합니다. <strong>첫 여정</strong>이 보이면 <strong>이동</strong>으로 목표 화면에 가고, 완료 후 <strong>받기</strong>로 다음 단계로 넘어가세요. 메뉴에서 바로 연습하려면 <strong>사격장 → 레인지 사격</strong>을 고르세요.</p>
+        <h3>사격 화면에서</h3>
+        <ul>
+          <li><strong>조준:</strong> 사격 화면을 손가락으로 드래그하세요.</li>
+          <li><strong>발사:</strong> 사격 화면을 짧게 탭하거나 발사 버튼을 누르세요.</li>
+          <li><strong>재장전:</strong> 탄약이 떨어지면 화면의 <strong>재장전</strong> 버튼을 누르세요.</li>
+        </ul>
+      </div>
+      <figure>
+        <img src="img/shot_01_range.jpg" alt="조준 화면과 하단 조작 버튼이 보이는 GUNTRA 레인지 사격" width="720" height="1280" loading="lazy">
+        <figcaption>레인지 사격 화면 예시 (슈팅 매치 화면 아님)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="modes" class="tile tile-parchment" aria-labelledby="modes-title">
+    <div class="wrap-text">
+      <h2 id="modes-title">게임 모드</h2>
+      <p class="section-lead">사격장에는 레인지, 챌린지, 슈팅 매치가 있습니다. 오버드라이브는 별도 메뉴에서 시작합니다.</p>
+      <div class="grid">
+        <article class="card"><h3>레인지 사격</h3><p>사격 환경과 거리를 고르고 원하는 표적을 쏘며 조작을 연습합니다.</p></article>
+        <article class="card"><h3>챌린지 사격</h3><p>여러 표적이 나오는 사격 과제에 도전합니다.</p></article>
+        <article class="card"><h3>슈팅 매치</h3><p>여러 사격 위치를 차례로 통과하며 득점과 시간으로 기록을 겨룹니다.</p></article>
+        <article class="card"><h3>오버드라이브</h3><p>몰려오는 표적의 웨이브와 보스를 상대하는 모드입니다.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="progression" class="tile tile-dark" aria-labelledby="progression-title">
+    <div class="wrap-text">
+      <h2 id="progression-title">성장과 보상</h2>
+      <p class="section-lead"><strong>CR(크레딧)</strong>은 새 화기를 구입하거나 보유한 화기를 강화하는 데 쓰는 게임 재화입니다.</p>
+      <div class="card">
+        <ul>
+          <li>사격으로 CR을 얻을 수 있습니다. 시간이 지나며 쌓인 수익은 무기고 상단의 수입 표시를 눌러 받으세요.</li>
+          <li>무기고의 미션에서 다음 목표를 확인하세요. 수익 수령이나 사격 모드 플레이가 미션 목표에 포함될 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="tile" aria-labelledby="faq-title">
+    <div class="wrap-text">
+      <h2 id="faq-title">자주 묻는 질문</h2>
+      <div class="card">
+        <dl>
+          <dt>명중 표시가 떴는데 왜 다음 위치로 안 가나요?</dt>
+          <dd>한 번 맞힌 것과 표적을 완료한 것은 다릅니다. 상단의 <strong>표적 N개 남음</strong>을 보세요. 현재 위치에 필요한 명중을 모두 채워야 자동으로 이동합니다.</dd>
+          <dt>‘넘기기’를 누르면 어떻게 되나요?</dt>
+          <dd>한 번 더 누르면 다음 위치로 넘어갑니다. 채우지 못한 명중은 미스로 처리되며, 넘기기를 사용했거나 제한 시간을 초과한 기록은 개인 최고 기록에 반영되지 않습니다.</dd>
+          <dt>빗나갈 때마다 10점씩 깎이나요?</dt>
+          <dd>아니요. 일반 빗나감 자체가 아니라, 스테이지 종료 시 채우지 못한 필수 명중 횟수만큼 미스 벌점이 붙습니다. 빗나간 뒤에 필요한 명중을 채워도 됩니다.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-bottom">
+  <div class="site-container">
+    <nav aria-label="하단 메뉴">
+      <a href="index.html">홈</a><a href="guide.html">게임 가이드</a><a href="updates.html">업데이트</a><a href="faq.html">FAQ</a><a href="privacy/index.html">개인정보처리방침</a>
+      <a href="mailto:jawsrawboy@gmail.com">이메일 문의</a><a href="https://www.youtube.com/@jrbworks">YouTube 채널</a>
+    </nav>
+    <p>© JRB WORKS</p>
+  </div>
+</footer>
+</body>
+</html>
